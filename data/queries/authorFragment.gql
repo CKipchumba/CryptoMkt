@@ -1,0 +1,25 @@
+fragment author on Author {
+  id
+  name
+  isVerified
+  image {
+    thumbnail: url(
+      transformation: {
+        image: {
+          resize: {
+            width: $authorImageSize
+            height: $authorImageSize
+            fit: crop
+          }
+        }
+        document: { output: { format: webp } }
+      }
+    )
+    blurDataURL: url(
+      transformation: {
+        image: { resize: { width: 10, height: 10, fit: crop } }
+        document: { output: { format: webp } }
+      }
+    )
+  }
+}

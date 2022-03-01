@@ -1,0 +1,31 @@
+fragment bid on Bid {
+  id
+  price
+  title
+  description
+  image {
+    url
+    xs: url(
+      transformation: {
+        image: {
+          resize: { width: $bidImageSizeXs, height: $bidImageSizeXs, fit: crop }
+        }
+        document: { output: { format: webp } }
+      }
+    )
+    thumbnail: url(
+      transformation: {
+        image: {
+          resize: { width: $bidImageSize, height: $bidImageSize, fit: crop }
+        }
+        document: { output: { format: webp } }
+      }
+    )
+    blurDataURL: url(
+      transformation: {
+        image: { resize: { width: 10, height: 10, fit: crop } }
+        document: { output: { format: webp } }
+      }
+    )
+  }
+}

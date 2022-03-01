@@ -1,0 +1,31 @@
+query getBids(
+  $limit: Int = 12
+  $skip: Int = 0
+  $slug: String = ""
+  $search: String = ""
+  $orderBy: BidOrderByInput
+  $bidImageSize: Int = 202
+  $bidImageSizeXs: Int = 32
+) {
+  bidsConnection(
+    orderBy: $orderBy
+    first: $limit
+    skip: $skip
+    where: { author: { slug_contains: $slug }, title_contains: $search }
+  ) {
+    edges {
+      node {
+        ...bid
+        slug
+      }
+    }
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      pageSize
+    }
+    aggregate {
+      count
+    }
+  }
+}
